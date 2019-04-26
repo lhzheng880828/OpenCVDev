@@ -1,0 +1,113 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        applicationId "org.opencv.samples.facedetect"
+        minSdkVersion 19
+        targetSdkVersion 27
+
+        ndk {
+            moduleName "detection_based_tracker"
+        }
+
+        /*采用CMakelists配置
+        externalNativeBuild {
+            cmake {
+                targets 'svrplugin'
+                abiFilters 'armeabi-v7a'
+                cppFlags "-frtti -fexceptions -D__STDC_FORMAT_MACROS -std=c++11"
+                arguments '-DANDROID_PLATFORM=android-19',
+                        '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=stlport_static'
+
+            }
+        }*/
+    }
+
+    packagingOptions {// 解决 More than one file was found with OS independent path
+        pickFirst 'META-INF/*'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+
+    /*采用cmake list编译
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }*/
+
+    //ndk-build,已有Android.mk
+    /**
+     * 采用ndk配置
+     */
+    externalNativeBuild {
+        ndkBuild{
+            //abiFilters 'armeabi-v7a'//支持的平台
+            path file('src/main/jni/Android.mk')
+        }
+    }
+
+    //ndk-build,有多个项目多个Android.mk,指向总脚本Android-config.mk
+    /*externalNativeBuild {
+        ndkBuild {
+            path 'Android-config.mk'
+        }
+    }*/
+
+
+    sourceSets {
+        main {
+            jni.srcDirs 'src/main/jni'
+            jniLibs.srcDirs 'src/main/jniLibs'
+        }
+    }
+
+    task ndkBuild(type: Exec) {
+        workingDir file('src/main/jni')
+        commandLine getNdkBuildCmd()
+    }
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn ndkBuild
+    }
+    task cleanNative(type: Exec) {
+        workingDir file('src/main/jni')
+        commandLine getNdkBuildCmd(), 'clean'
+    }
+    clean.dependsOn cleanNative
+}
+
+dependencies {
+    implementation project(':opencvlib')
+    implementation 'pub.devrel:easypermissions:1.2.0'
+}
+
+android.lintOptions {
+    abortOnError  = false
+}
+
+def getNdkDir() {
+    if (System.env.ANDROID_NDK_ROOT != null)
+        return System.env.ANDROID_NDK_ROOT
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties')
+            .newDataInputStream())
+    def ndkdir = properties.getProperty('ndk.dir', null)
+    if (ndkdir == null)
+        throw new GradleException("NDK location not found. Define location with ndk.dir in the local.properties file or with an ANDROID_NDK_ROOT environment variable.")
+    return ndkdir
+}
+
+def getNdkBuildCmd() {
+    def ndkbuild = getNdkDir() + "/ndk-build"
+    /*if (Os.isFamily(Os.FAMILY_WINDOWS))
+        ndkbuild += ".cmd"*/
+    return ndkbuild
+}

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">OpenCVDev</string>
+
+    <string name="menu_image_pick">选择图片</string>
+    <string name="mean_blur">均值模糊</string>
+    <string name="gaussian_blur">高斯模糊</string>
+    <string name="sharpen">锐化</string>
+
+    <string name="dilate">膨胀</string>
+    <string name="erode">腐蚀</string>
+    <string name="threshold">阈值</string>
+    <string name="canny">Canny边缘</string>
+    <string name="sobel">Sobel边缘</string>
+    <string name="harris">Harris角点</string>
+    <string name="houghLines">Hough直线</string>
+    <string name="houghCircle">Hough圆形</string>
+
+    <string name="gaussian_diff">高斯轮廓</string>
+</resources>

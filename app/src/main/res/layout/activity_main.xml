@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/DoG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/gaussian_diff"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toEndOf="@+id/bDilate"
+        app:layout_constraintTop_toTopOf="@+id/bDilate"
+         />
+
+
+    <Button
+        android:id="@+id/bMean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/mean_blur"
+        app:layout_constraintStart_toStartOf="@+id/DoG"
+        app:layout_constraintTop_toBottomOf="@+id/DoG" />
+
+    <Button
+        android:id="@+id/bGaussian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/gaussian_blur"
+        app:layout_constraintStart_toStartOf="@+id/bMean"
+        app:layout_constraintTop_toBottomOf="@+id/bMean" />
+
+    <Button
+        android:id="@+id/bSharpen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/sharpen"
+        app:layout_constraintStart_toStartOf="@+id/bGaussian"
+        app:layout_constraintTop_toBottomOf="@+id/bGaussian" />
+
+    <Button
+        android:id="@+id/bDilate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/dilate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bErode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/erode"
+        app:layout_constraintStart_toStartOf="@+id/bDilate"
+        app:layout_constraintTop_toBottomOf="@+id/bDilate" />
+
+    <Button
+        android:id="@+id/bThreshold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/threshold"
+        app:layout_constraintStart_toStartOf="@+id/bDilate"
+        app:layout_constraintTop_toBottomOf="@+id/bErode" />
+
+    <Button
+        android:id="@+id/bCanny"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/canny"
+        app:layout_constraintStart_toStartOf="@+id/bThreshold"
+        app:layout_constraintTop_toBottomOf="@+id/bThreshold"/>
+
+    <Button
+        android:id="@+id/bSobel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/sobel"
+        app:layout_constraintStart_toEndOf="@+id/DoG"
+        app:layout_constraintTop_toTopOf="@+id/DoG"/>
+
+    <Button
+        android:id="@+id/bHarrisCorner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/harris"
+        app:layout_constraintStart_toEndOf="@+id/bMean"
+        app:layout_constraintTop_toTopOf="@+id/bMean"/>
+
+    <Button
+        android:id="@+id/bHoughLines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/houghLines"
+        app:layout_constraintStart_toEndOf="@+id/bGaussian"
+        app:layout_constraintTop_toTopOf="@+id/bGaussian"/>
+
+    <Button
+        android:id="@+id/bHoughCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/houghCircle"
+        app:layout_constraintStart_toEndOf="@+id/bSharpen"
+        app:layout_constraintTop_toTopOf="@+id/bSharpen"/>
+</android.support.constraint.ConstraintLayout>
